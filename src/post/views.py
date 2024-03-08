@@ -1,11 +1,26 @@
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic.edit import DeleteView
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404, HttpResponseNotFound
-from django.views.decorators.csrf import csrf_exempt
 from .models import Post
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'post_confirm_delete.html'
+    success_url = reverse_lazy('home')
 
-def post_detail(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    return render(request, './templates/post_detail.html', {'post': post})
+    def delete(self, request, *args, **kwargs):
+        print("Deleting post...")
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        print(f"Post ID before deletion: {self.object.id}")
+        self.object.delete()
+        print(f"Post ID after deletion: {self.object.id}")
+        return redirect(success_url)
+
+    def get(self, request, *args, **kwargs):
+        post = self.get_object()
+        return render(request, 'post_detail.html', {'post': post})
+
 def home_view(request):
     return render(request, 'home.html')
 
@@ -24,5 +39,6 @@ def get_post_handler(request):
     if request.POST:
         return HttpResponse('POST request')
     return HttpResponse('GET request')
+
 def page_404(request, exception):
     return HttpResponseNotFound("<h3>Page not found :^(</h3>")

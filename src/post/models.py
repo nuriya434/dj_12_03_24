@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class UserAccount(models.Model):
     # str fields:
@@ -47,6 +48,10 @@ class Post(models.Model):
         to=Category,
         related_name='posts',
     )
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[str(self.id)])
 
     # dunder methods:
     def __str__(self) -> str:

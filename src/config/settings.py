@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-monk@c2e5q%3r#$j$*txk-sdvd_)^dl60fjtt1_g%$wan^&0zk'
 
-DEBUG = False
+DEBUG = True
 
 # config/settings.py
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -88,3 +88,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler',
+}
