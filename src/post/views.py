@@ -1,7 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
+from .models import Post
 
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, './templates/post_detail.html', {'post': post})
 def home_view(request):
     return render(request, 'home.html')
 
