@@ -1,18 +1,18 @@
+<!-- templates/post/post_confirm_delete.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Post</title>
 </head>
 <body>
     <h1>Delete Post</h1>
+    <p>Are you sure you want to delete this post?</p>
     <form method="post">
         {% csrf_token %}
-        <p>Are you sure you want to delete the post "{{ post.title }}"?</p>
-        <button type="submit">Confirm</button>
+        <button type="submit">Confirm Delete</button>
     </form>
-    <a href="{% url 'home' %}">Cancel</a>
 </body>
 </html>
