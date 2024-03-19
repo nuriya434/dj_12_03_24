@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/', include('post.urls')),
     path('', home_view, name='home'),
+    path('api/', include('post.urls')),
 ]
 
 handler404 = page_404
